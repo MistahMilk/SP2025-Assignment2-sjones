@@ -1,10 +1,257 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" integrity="sha384-xewr6kSkq3dBbEtB6Z/3oFZmknWn7nHqhLVLrYgzEFRbU/DHSxW7K3B44yWUN60D" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@microsoft/azsearch.js@0.0.21/dist/AzSearch.css" integrity="sha384-A4GRwkHIqaePcrwhXmW+Ie/Q1cPwV20Ma4G/dCn6CgIk91An1IAnpZ/RXRnTFHPB" crossorigin="anonymous">
+    <title>Milk's Real Estate</title>
+    <style>
+        .searchResults__result h4 {
+            margin-top: 0px;
+            text-transform: uppercase;
+        }
 
+        .searchResults__result .resultDescription {
+            margin: 0.5em 0 0 0;
+        }
+    </style>
+</head>
+<body style="background-color: black">
+    <div id="app">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#facetPanel" aria-expanded="false"
+                            aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <div class="row">
+                        <div class="col-md-2 pagelabel">
+                            <a id="title" class="navbar-brand pagelabel">Milk's Real Estate</a>
+                        </div>
+                        <div id="searchBox" class="col-md-8 col-sm-8 col-xs-6"></div>
+                        <div class="col-md-2 text-right">
+                            <button id="timeButton" class="btn btn-primary">Show Current Time</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="facetPanel" class="col-sm-3 col-md-3 sidebar collapse">
+                    <div id="clearFilters"></div>
+                    <ul class="nav nav-sidebar">
+                        <div className="panel panel-primary behclick-panel">
+
+                        <li>
+                            <div id="bedsFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="bathsFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="sqftFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="daysOnMarketFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="statusFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="typeFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="cityFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="regionFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="postCodeFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="priceFacet">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="tagsFacet">
+                            </div>
+                        </li>
+                </div>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 results_section">
+                <div id="results" class="row placeholders">
+                </div>
+                <div id="pager" class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="time" title="Current Time" style="display: none;"></div>
+
+
+
+    <!-- Bootstrap core JavaScript
+        ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha384-JPbtLYL10d/Z1crlc6GGGGM3PavCzzoUJ1UxH0bXHOfguWHQ6XAWrIzW+MBGGXe5" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
+<!-- Dependencies -->
+<script src="https://cdn.jsdelivr.net/react/15.5.0/react.min.js" integrity="sha384-unua6Gv4M/M70BdLhkLiN8hgAL+jKt8Iiy6SFD9S0ywoRy+5zHVBuztpyEn0tAus" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/react/15.5.0/react-dom.min.js" integrity="sha384-mcKbn9HhTY6F3IhItyNmc8stlOpwMfyzy66GsAGSsjMpjAjvEWuE/bwDiMTR9P8f" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/redux/3.6.0/redux.min.js" integrity="sha384-vG6fds20q0bT+1dDKZMlWnQZM1Aic6HaVjyELCdGUDBZQpiKM3Zfm+R6DTUfUlB/" crossorigin="anonymous"></script>
+<!-- Main -->
+<script src="https://cdn.jsdelivr.net/npm/@microsoft/azsearch.js@0.0.21/dist/AzSearch.bundle.js" integrity="sha384-L81tXpv1V/sogv+CuyItOpknRBiTHFDZlI/XQw1RY23xGj7bq64cD9B+U1HU5Dp2" crossorigin="anonymous"></script>
+<script>
+
+    const serviceName = "jonessp25mis521";
+    const dnsSuffix = "search.windows.net";
+    const indexName = "realestate-us-sample-index";
+    const apiKey = "3TJ4W8EeWID3xk6olNq5OqT8e0PI8i7khcr6G2eeZjAzSeB74xGC";
+    const apiVersion = "2024-11-01-preview"; // or a later version
+
+    // WARNING
+    // For demonstration purposes only, do not use in a production environment. For simplicity, this is a single HTML page that has the query key to the search service.
+    // CORS (*) must be enabled in the index before using the demo app. API key authentication must be enabled in the search service.
+
+    // Initialize and connect to your search service
+    var automagic = new AzSearch.Automagic({ index:indexName, queryKey:apiKey, service:serviceName, dnsSuffix:dnsSuffix });
+    
+    const resultTemplate = `
+    <div class="searchResults__result row result-container">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <img class="img-responsive result_img" src="{{thumbnail}}" alt="Image not found" />
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9">
+            <h4 class="text-uppercase text-white"><strong>{{city}}</strong></h4>
+            <p class="text-white"><strong>Address:</strong> {{number}} {{street}}, {{region}}, {{postCode}}</p>
+            <p class="text-white"><strong>Price:</strong> $ {{price}}</p>
+            <p class="text-white"><strong>Beds:</strong> {{beds}} | <strong>Baths:</strong> {{baths}} | <strong>SqFt:</strong> {{sqft}}</p>
+            <p class="text-white"><strong>Days on Market:</strong> {{daysOnMarket}}</p>
+            <p class="resultDescription text-white">{{description}}</p>
+        </div>
+    </div>
+    <hr>
+`;
+
+
+    // add a results view using the template defined above
+    automagic.addResults("results", { count: true }, resultTemplate);
+    // Adds a pager control << 1 2 3 ... >>
+    automagic.addPager("pager");
+    
+    // Set some processors to format results for display
+    var suggestionsProcessor = function (results) {
+        return results.map(function (result) {
+            result.searchText = result["@search.text"];
+            return result;
+        });
+    };
+
+    automagic.store.setSuggestionsProcessor(suggestionsProcessor);
+
+    var suggestionsTemplate = `
+            <p> {{number}} {{street}} {{city}} {{region}} {{countryCode}} </p> {{{searchText}}}`;
+
+    // Add a search box that uses suggester "sg", grabbing some additional fields to display during suggestions. Use the template defined above
+    automagic.addSearchBox("searchBox",
+        {
+            highlightPreTag: "<b>",
+            highlightPostTag: "</b>",
+            suggesterName: "sg",
+            select: "number,street,city,region,countryCode"
+        },
+        "",
+        suggestionsTemplate);
+    
+   automagic.addRangeFacet("bedsFacet", "beds", "number", 0, 6);
+   automagic.addRangeFacet("bathsFacet", "baths", "number", 0, 6);
+   automagic.addRangeFacet("sqftFacet", "sqft", "number", 0, 20000);
+   automagic.addRangeFacet("daysOnMarketFacet", "daysOnMarket", "number", 0, 10000);
+   automagic.addCheckboxFacet("statusFacet", "status", "string");
+   automagic.addCheckboxFacet("typeFacet", "type", "string");
+   automagic.addCheckboxFacet("cityFacet", "city", "string");
+   automagic.addCheckboxFacet("regionFacet", "region", "string");
+   automagic.addCheckboxFacet("postCodeFacet", "postCode", "string");
+   automagic.addRangeFacet("priceFacet", "price", "number", 0, 1000000);
+   automagic.addCheckboxFacet("tagsFacet", "tags", "collection");
+
+
+    // Adds a button to clear any applied filters
+    automagic.addClearFiltersButton("clearFilters");
+
+    $(document).ready(function () {
+        var imageNum = 0;
+        var images = [
+            "url('background1.jpg')",
+            "url('background2.jpg')",
+            "url('background3.jpg')",
+            "url('background4.jpg')"
+        ];
+
+        $("#title").click(function () {
+            imageNum = (imageNum + 1) % images.length;
+            $("html, body").css({
+                "background-image": images[imageNum],
+                "background-size": "cover",
+                "background-position": "center center",
+                "background-attachment": "fixed",
+                "background-repeat": "no-repeat"
+            });
+        });
+
+        $("#timeButton").click(function () {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+
+            $("#time").text("Current Time: " + formattedTime).dialog({
+                modal: true,
+                resizable: false,
+                width: 300
+            });
+        });
+        
+    });
+
+
+</script>
+<style>
+    #facetPanel {
+        background-image: url('facetpicture.jpg'); 
+        background-size: cover;
+    }
+
+    .result-container {
+        color: white !important; 
+    }
+
+    .text-white {
+        color: white !important;
+    }
+</style>
 </html>

@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\background1.jpg" />
+    <None Include="wwwroot\background2.jpg" />
+    <None Include="wwwroot\background3.jpg" />
+    <None Include="wwwroot\background4.jpg" />
+    <None Include="wwwroot\facetpicture.jpg" />
+    <None Include="wwwroot\index.html" />
+  </ItemGroup>
+
 </Project>
